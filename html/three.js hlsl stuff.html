@@ -38,7 +38,7 @@
 				void main() {
 					float x = mod(time + gl_FragCoord.x, 20.) < 10. ? 1. : 0.;
 					float y = mod(time + gl_FragCoord.y, 20.) < 10. ? 1. : 0.;
-					gl_FragColor = vec4(vec3(min(x, y) + vec3(sin(time) * 0.98,cos(time) * 0.65,sin(time)* 0.6)), 1.);
+					gl_FragColor = vec4(vec3(min(x + vUv.x, y + vUv.y) + vec3(sin(time) * 0.98,cos(time) * 0.65,sin(time)* 0.6)), 1.);
 				}
 			`;
 
