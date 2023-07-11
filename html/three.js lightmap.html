@@ -18,6 +18,8 @@
 
             // Create a renderer
             const renderer = new THREE.WebGLRenderer();
+            renderer.useLegacyLights = false;
+			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
@@ -35,16 +37,6 @@
             });
             const sphere = new THREE.Mesh(geometry, material);
             scene.add(sphere);
-            // Create a sphere with a PBR material
-            // const geometry = new THREE.SphereGeometry();
-            // const material = new THREE.MeshPhysicalMaterial({
-            //     map: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_BaseColor.png'),
-            //     metalness: 1,
-            //     roughness: 0.5,
-            //     // Add other PBR parameters as needed
-            // });
-            // const sphere = new THREE.Mesh(geometry, material);
-            // scene.add(sphere);
 
             // Add a light to the scene
             const light = new THREE.PointLight(0xffffff, 2);
