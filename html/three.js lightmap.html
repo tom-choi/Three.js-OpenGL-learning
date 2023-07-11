@@ -23,12 +23,13 @@
 
             // Create a sphere with a light map
             const geometry = new THREE.SphereGeometry();
-            const material = new THREE.MeshPhongMaterial({
+            const material = new THREE.MeshPhysicalMaterial({
                 map: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_BaseColor.png'),
                 normalMap: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_Normal.png'),
                 aoMap: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_AO.png'),
                 displacementMap: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_Height.png'),
                 displacementScale: 0.5,
+                roughnessMap: new THREE.TextureLoader().load('models/Rock08_MR_2K/Rock08_2K_Roughness.png'),
                 shininess: 200
                 
             });
@@ -46,7 +47,7 @@
             // scene.add(sphere);
 
             // Add a light to the scene
-            const light = new THREE.PointLight(0xffffff, 1);
+            const light = new THREE.PointLight(0xffffff, 2);
             light.position.set(0, 0, 2);
             scene.add(light);
 
