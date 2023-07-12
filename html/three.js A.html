@@ -63,7 +63,7 @@
             const color = new THREE.Color();
 
             const n = 800, n2 = n / 2;	// triangles spread in the cube
-            const d = 12, d2 = d / 2;	// individual triangle size
+            const d = 42, d2 = d / 2;	// individual triangle size
 
             const pA = new THREE.Vector3();
             const pB = new THREE.Vector3();
@@ -275,6 +275,7 @@
             geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ).onUpload( disposeArray ) );
             geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ).onUpload( disposeArray ) );
             geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 4 ).onUpload( disposeArray ) );
+            geometry.attributes.position.needsUpdate = true;
 
             geometry.computeBoundingSphere();
 
@@ -325,10 +326,27 @@
 
             function render() {
 
-                const time = Date.now() * 0.001;
+                const time = Date.now();
+                const displacement = Math.sin(time * 0.001);
+                const newpositions = [];
+                const newcolor = [];
 
-                mesh.rotation.x = time * 0.25;
-                mesh.rotation.y = time * 0.5;
+                for (let i = 0; i < triangles * 1;++i)
+                {
+                    // Change the position based on the sin() function
+                    const randomNum = Math.random() * 100;
+                    newpositions[i*3] = positions[i*3] + displacement + randomNum; 
+                    newpositions[i*3+1] = positions[i*3+1] + displacement + randomNum; 
+                    newpositions[i*3+2] = positions[i*3+2] + displacement + randomNum;
+                    
+                }
+                    
+                geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( newpositions, 3 ).onUpload( disposeArray ) );
+                // geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( newcolor, 4 ).onUpload( disposeArray ) );
+                // mesh.position.y = displacement * 50; // Change the y position based on the sin() function
+
+                // mesh.rotation.x = time * 0.25;
+                // mesh.rotation.y = time * 0.5;
 
                 renderer.render( scene, camera );
 
