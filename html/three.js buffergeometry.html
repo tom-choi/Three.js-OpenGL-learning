@@ -166,11 +166,9 @@
             const stats = new Stats();
             container.appendChild( stats.dom );
 
-            //
+            // Event
 
             window.addEventListener( 'resize', onWindowResize );
-
-
 
             animate();
 
@@ -182,8 +180,6 @@
                 renderer.setSize( window.innerWidth, window.innerHeight );
 
             }
-
-            //
 
             function animate() {
 

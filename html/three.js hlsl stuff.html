@@ -94,9 +94,7 @@
 
 			function onWindowResize() 
 			{
-				const aspectRatio = window.innerWidth / window.innerHeight;
-				camera.left = - aspectRatio;
-				camera.right = aspectRatio;
+				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );

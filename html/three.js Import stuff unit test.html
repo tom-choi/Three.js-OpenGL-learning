@@ -57,7 +57,7 @@
 			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
             import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 			import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-            
+
 
             // Add a light to the scene
             const light = new THREE.PointLight(0xffffff, 1);
@@ -72,6 +72,8 @@
             const lightBall = new THREE.Mesh(lightBallGeometry, lightBallMaterial);
             scene.add(lightBall)
 
+            // Event
+            window.addEventListener( 'resize', onWindowResize );
 
             // Render the scene
             function animate() 
@@ -88,6 +90,17 @@
 
                 renderer.render(scene, camera);
             }
+
+            function onWindowResize() 
+            {
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+            }
+
             animate();
 		</script>
 	</body>

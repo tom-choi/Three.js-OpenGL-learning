@@ -43,6 +43,9 @@
             light.position.set(0, 0, 2);
             scene.add(light);
 
+            // Event
+            window.addEventListener( 'resize', onWindowResize );
+
             // Render the scene
             function animate() 
             {
@@ -54,6 +57,17 @@
                 light.position.y = Math.cos(Date.now() * 0.001) * 2; // Change the y position of the light
                 renderer.render(scene, camera);
             }
+
+            function onWindowResize() 
+            {
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+            }
+
             animate();
 		</script>
 	</body>
