@@ -10,6 +10,7 @@
 		<script type="module">
 			import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 			import { ShaderMaterial } from 'https://unpkg.com/three/build/three.module.js';
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 			// const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -102,9 +103,7 @@
 				// composer.setSize( window.innerWidth, window.innerHeight );
 			}
 
-			gui = new GUI();
-			params = { Hello: 6, World: .3, Made_by: .4, Tom: true };
-			gui.add( params, 'tom_ci' );
+			new OrbitControls( camera, renderer.domElement );
 		</script>
 	</body>
 </html>

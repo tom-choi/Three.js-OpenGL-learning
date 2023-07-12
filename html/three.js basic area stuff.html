@@ -78,9 +78,11 @@
 
                 // positions
 
-                const x = Math.random() * n - n2;
+                const theta = Math.random() * 2 * Math.PI;
                 const y = Math.random() * n - n2;
-                const z = Math.random() * n - n2;
+                const radius = Math.sqrt(n2 * n2 - y * y);
+                const x = radius * Math.cos(theta);
+                const z = radius * Math.sin(theta);
 
                 const ax = x + Math.random() * d - d2;
                 const ay = y + Math.random() * d - d2;
