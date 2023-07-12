@@ -331,17 +331,17 @@
                 const newpositions = [];
                 const newcolor = [];
 
-                for (let i = 0; i < triangles * 1;++i)
-                {
-                    // Change the position based on the sin() function
-                    const randomNum = Math.random() * 100;
-                    newpositions[i*3] = positions[i*3] + displacement + randomNum; 
-                    newpositions[i*3+1] = positions[i*3+1] + displacement + randomNum; 
-                    newpositions[i*3+2] = positions[i*3+2] + displacement + randomNum;
+                // for (let i = 0; i < triangles * 1;++i)
+                // {
+                //     // Change the position based on the sin() function
+                //     const randomNum = Math.random() * 100;
+                //     newpositions[i*3] = positions[i*3] + displacement + randomNum; 
+                //     newpositions[i*3+1] = positions[i*3+1] + displacement + randomNum; 
+                //     newpositions[i*3+2] = positions[i*3+2] + displacement + randomNum;
                     
-                }
+                // }
                     
-                geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( newpositions, 3 ).onUpload( disposeArray ) );
+                // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( newpositions, 3 ).onUpload( disposeArray ) );
                 // geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( newcolor, 4 ).onUpload( disposeArray ) );
                 // mesh.position.y = displacement * 50; // Change the y position based on the sin() function
 
