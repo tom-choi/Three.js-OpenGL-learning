@@ -7,6 +7,8 @@ Three.js-OpenGL-learning
 npx serve .
 ```
 
+打開 `\html` 下的文件
+
 # Three.js 使用方法
 # 方法1 - import from a CDN
 
