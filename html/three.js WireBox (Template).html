@@ -40,23 +40,33 @@
 
             const boxgeometry = new THREE.BoxGeometry( 16, 16, 16, 16, 16, 16);
 
-            const boxmaterial = new THREE.MeshNormalMaterial( {
-                color: 0xff0000, 
+            const boxmaterial = new THREE.ShaderMaterial( {
+                uniforms: {
+					time: { type: "f", value: 1.0 },
+                    resolution: { value: new THREE.Vector2() }
+				},
                 wireframe: true,
                 vertexShader: `
-                void main() {
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
+                    uniform float time;
+                    void main() {
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
                 `,
                 fragmentShader: `
+                    // Declare the resolution variable
+                    uniform vec2 resolution;
                     void main() {
-                        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+                        // Calculate the gradient based on the y-coordinate
+                        float gradient = gl_FragCoord.y;
+
+                        // Set the color using the gradient value
+                        gl_FragColor = vec4(gl_FragCoord.x / resolution.x, gl_FragCoord.y / resolution.y, 0.5, 1.0);
                     }
                 `,
             } );
 
-            const mesh = new THREE.Mesh( boxgeometry, boxmaterial );
-            scene.add( mesh );
+            const box = new THREE.Mesh( boxgeometry, boxmaterial );
+            scene.add( box );
 
             //
 
@@ -69,8 +79,9 @@
             window.addEventListener( 'resize', onWindowResize );
 
             function animate() {
-
                 requestAnimationFrame( animate );
+                // Time
+				box.material.uniforms.time.value += 0.01;
 
                 render();
 
