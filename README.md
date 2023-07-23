@@ -2,9 +2,17 @@
 Three.js-OpenGL-learning
 
 # 啟動方式
+## 1. html 下 Three.js Demo 啟動方式
 安裝 Node.js，然後運行serve以在項目目錄中啟動本地服務器：npx 服務
 ```
 npx serve .
+```
+
+## 2. three_fiber 啟動方式
+
+```
+cd three_fiber
+npm run start
 ```
 
 打開 `\html` 下的文件
@@ -40,5 +48,14 @@ npx serve .
     ...
 ```
 
+# 簡單筆記 (React)
 
+```
+npx create-react-app . --template minimal
+```
 
+# fiber, drei, postprocessing
+
+```
+npm install three @react-three/fiber @react-three/drei @react-three/postprocessing
+```
