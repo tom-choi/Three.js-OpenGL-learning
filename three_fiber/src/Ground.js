@@ -15,7 +15,8 @@ export function Ground(){
         [normal, roughness].forEach((t) =>{
             t.wrapS = RepeatWrapping;
             t.wrapT = RepeatWrapping;
-            t.repeat.set(5,5);
+            t.repeat.set(5, 5);
+            t.offset.set(0, 0);
         });
     }, [normal, roughness]);
 
