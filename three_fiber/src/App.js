@@ -4,12 +4,28 @@ import "./style.css";
 import {OrbitControls, PerspectiveCamera} from "@react-three/drei";
 import { Ground } from './Ground';
 import { useFrame } from '@react-three/fiber';
+import { TextureLoader } from "three";
+import { useLoader } from "@react-three/fiber";
 
 function CarShow(){
   const spotlightref1 = useRef();
   const spotlightref2 = useRef();
   const spotlightref3 = useRef(); // New ref for green spotlight
   const spotlightref4 = useRef(); // New ref for yellow spotlight
+
+  // Create four floating panels
+  const panel1Ref = useRef();
+  const panel2Ref = useRef();
+  const panel3Ref = useRef();
+  const panel4Ref = useRef();
+
+  // TextureLoader
+  const [redIconTexture, blueIconTexture, greenIconTexture, yellowIconTexture] = useLoader(TextureLoader,[
+    process.env.PUBLIC_URL + "icon/appstore.png",
+    process.env.PUBLIC_URL + "icon/googlestore.png",
+    process.env.PUBLIC_URL + "icon/android.png",
+    process.env.PUBLIC_URL + "icon/github.png",
+]);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime(); // Get the elapsed time
@@ -23,6 +39,13 @@ function CarShow(){
     spotlightref3.current.position.z = Math.sin(t) * 1 + 1;
     spotlightref4.current.position.x = -Math.cos(t) * 1 - 1; // Set position for yellow spotlight
     spotlightref4.current.position.z = -Math.sin(t) * 1 - 1;
+
+    // Calculate the rotation
+    // Rotate the panels
+    panel1Ref.current.rotation.y += 0.01;
+    panel2Ref.current.rotation.y += 0.01;
+    panel3Ref.current.rotation.y += 0.01;
+    panel4Ref.current.rotation.y += 0.01;
   });
 
   return (
@@ -71,6 +94,27 @@ function CarShow(){
         castShadow
         shadowBias={-0.0001}
       />
+
+      {/* Add four floating panels */}
+      <mesh ref={panel1Ref} position={[-2, 0, 0]} onClick={() => window.location.href = "https://apps.apple.com/us/app/um-all/id1636670554"}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"red"} map={redIconTexture} />
+      </mesh>
+
+      <mesh ref={panel2Ref} position={[2, 0, 0]} onClick={() => window.location.href = "https://play.google.com/store/apps/details?id=one.umall"}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"blue"} map={blueIconTexture} />
+      </mesh>
+
+      <mesh ref={panel3Ref} position={[0, 0, -2]} onClick={() => window.location.href = "https://umall.one/static/release/app-release.apk"}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"green"} map={greenIconTexture} />
+      </mesh>
+
+      <mesh ref={panel4Ref} position={[0, 0, 2]} onClick={() => window.location.href = "https://github.com/UM-ARK/UM-All-Frontend"}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={"yellow"} map={yellowIconTexture} />
+      </mesh>
 
       <Ground />
     </>
