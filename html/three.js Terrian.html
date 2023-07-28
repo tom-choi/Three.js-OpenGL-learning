@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>three.js buffergeometry</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+        <div id="container"></div>
+
+        <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
+			{
+                "imports": 
+                {
+                    "three": "https://unpkg.com/three/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three/examples/jsm/"
+                }
+            }
+		</script>
+
+		<script type="module">
+            import * as THREE from 'three';
+            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+            // init
+            const container = document.getElementById( 'container' );
+
+            //
+            const camera = new THREE.PerspectiveCamera( 27, window.innerWidth / window.innerHeight, 1, 3500 );
+            camera.position.set(0, 0, 10); // Adjust the position of the camera
+
+            const scene = new THREE.Scene();
+
+            const axesHelper = new THREE.AxesHelper(16);
+            scene.add(axesHelper);
+
+            //
+
+            const boxgeometry = new THREE.BoxGeometry( 16, 16, 16, 16, 16, 16);
+
+            const boxmaterial = new THREE.ShaderMaterial( {
+                uniforms: {
+					time: { type: "f", value: 1.0 },
+                    resolution: { value: new THREE.Vector2() }
+				},
+                wireframe: true,
+                vertexShader: `
+                    uniform float time;
+                    void main() {
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    // Declare the resolution variable
+                    uniform vec2 resolution;
+                    void main() {
+                        // Calculate the gradient based on the y-coordinate
+                        float gradient = gl_FragCoord.y;
+
+                        // Set the color using the gradient value
+                        gl_FragColor = vec4(gl_FragCoord.x / resolution.x, gl_FragCoord.y / resolution.y, 0.5, 1.0);
+                    }
+                `,
+            } );
+
+            const box = new THREE.Mesh( boxgeometry, boxmaterial );
+            scene.add( box );
+
+            //
+
+            const renderer = new THREE.WebGLRenderer( { antialias: true } );
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            container.appendChild( renderer.domElement );
+
+            // Event
+            window.addEventListener( 'resize', onWindowResize );
+
+            function animate() {
+                requestAnimationFrame( animate );
+                // Time
+				box.material.uniforms.time.value += 0.01;
+
+                render();
+
+            }
+
+            function render() {
+
+                renderer.render( scene, camera );
+
+            }
+
+            function onWindowResize() 
+            {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                composer.setSize( window.innerWidth, window.innerHeight );
+
+            }
+
+            animate();
+            new OrbitControls( camera, renderer.domElement );
+		</script>
+	</body>
+</html>
