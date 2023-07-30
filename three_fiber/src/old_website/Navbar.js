@@ -1,6 +1,4 @@
 import React from 'react';
-import App from './App';
-import { createRoot } from 'react-dom/client';
 import '../src/navbar.scss';
 import '../src/animation.css';
 

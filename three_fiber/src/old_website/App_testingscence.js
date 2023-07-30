@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import "./style.css";
 import {OrbitControls, PerspectiveCamera} from "@react-three/drei";
 import { Ground } from './Ground';
-import { Navbar } from './Navbar';
 import { useFrame } from '@react-three/fiber';
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
