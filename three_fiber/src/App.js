@@ -2,30 +2,14 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import "./App.css";
+import "./index.css";
 
-import { useLoader } from '@react-three/fiber';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { BrowserRouter, NavLink } from 'react-router-dom';
+import { Navbar } from './sub_canvas/Navbar';
+import { Home } from './sub_canvas/Home';
+import { QApages } from './sub_canvas/QApages';
+import { UserAgreement } from './sub_canvas/UserAgreement';
 
-function Title(){
-  return (
-    <>
-      <div className="relative z-0">
-        <h1>HelloWorld!</h1>
-      </div>
-    </>
-  );
-}
-
-function Iphone(){
-  const fbx = useLoader(FBXLoader, './model/Iphone seceond version finished.fbx');
-  return(
-    <>
-      <mesh>
-        <primitive object={fbx} />
-      </mesh>
-    </>
-  )
-}
 
 function CarShow(){
   return(
@@ -43,12 +27,21 @@ function CarShow(){
 
 function App() {
   return (
-    <Suspense fallback={null}>
-      <Title />
-      <Canvas style={{ background: "black" }} shadows>
-        <CarShow />
-      </Canvas>
-    </Suspense>
+    <BrowserRouter>
+      <div className='relative z-0 bg-primary'>
+        <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
+          <Navbar/>
+          <Home/>
+          <QApages/>
+          <UserAgreement/>
+        </div>
+      </div>
+      <Suspense fallback={null}>
+        <Canvas style={{ background: "black" }} shadows>
+          <CarShow />
+        </Canvas>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 

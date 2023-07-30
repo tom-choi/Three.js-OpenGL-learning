@@ -5,10 +5,10 @@ html, body, #root, canvas{
     overflow: hidden;
     position: fixed;
 }
-.title 
+/* .title 
 {
     top: 50%;
     left: 50%;
     color:rgb(164, 75, 75);
     text-align: center;
-}
+} */
