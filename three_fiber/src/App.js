@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, DirectionalLight } from "@react-three/drei";
 import "./App.css";
 import "./index.css";
 
@@ -10,17 +10,29 @@ import { Home } from './sub_canvas/Home';
 import { QApages } from './sub_canvas/QApages';
 import { UserAgreement } from './sub_canvas/UserAgreement';
 
+import { useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 function CarShow(){
+  const gltf = useLoader(GLTFLoader, './models/iphone_11_pro/scene.gltf');
+
   return(
     <>
       <OrbitControls target={[0,0.35,0]} maxPolarAngle={1.45}/>
       <PerspectiveCamera makeDefault fov={50} position={[8, 2, 10]}/>
-
-
-      <Plane args={[10, 10]}>
-        <meshBasicMaterial color="white" />
-      </Plane>
+      
+      <mesh>
+        <primitive object={gltf} />
+        <spotLight
+          color={[1, 1, 1]}
+          intensity={1.5}
+          angle={0.6}
+          penumbra={0.5}
+          position={[3, 5, 0]}
+          castShadow
+          shadowBias={-0.0001}
+        />
+      </mesh>
     </>
   )
 }
